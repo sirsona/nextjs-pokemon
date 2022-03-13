@@ -4,7 +4,19 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
 
-export async function getServerSideProps() {
+// Moving to SSR (server side rendering)
+// export async function getServerSideProps() {
+//   const resp = await fetch(
+//     "https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json"
+//   );
+
+//   return {
+//     props: { pokemon: await resp.json() },
+//   };
+// }
+
+// Moving to SSG (static site generation)
+export async function getStaticProps() {
   const resp = await fetch(
     "https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json"
   );

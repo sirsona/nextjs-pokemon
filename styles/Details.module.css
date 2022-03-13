@@ -30,3 +30,7 @@
 .picture {
   max-height: 400px;
 }
+
+.tag {
+  font-weight: Bold;
+}

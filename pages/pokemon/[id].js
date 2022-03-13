@@ -6,7 +6,34 @@ import styles from "../../styles/Details.module.css";
 import Head from "next/head";
 import Link from "next/link";
 
-export const getServerSideProps = async ({ params }) => {
+// Moving to SSR (server side rendering)
+
+/* export const getServerSideProps = async ({ params }) => {
+  const resp = await fetch(
+    `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${params.id}.json`
+  );
+  return {
+    props: { pokemon: await resp.json() },
+  };
+  }; */
+
+// Moving to SSG (static site generation)
+
+export const getStaticPaths = async () => {
+  const resp = await fetch(
+    `https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json`
+  );
+  const pokemon = await resp.json();
+
+  return {
+    paths: pokemon.map((pokemon) => ({
+      params: { id: pokemon.id.toString() },
+    })),
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ params }) => {
   const resp = await fetch(
     `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${params.id}.json`
   );
@@ -44,9 +71,11 @@ export default function Detail({ pokemon }) {
 
       {/* Back Home Link */}
       <div>
-        <Link href="/">
-          <a> Back To Home</a>
-        </Link>
+        <button>
+          <Link href="/">
+            <a className={styles.tag}> Back To Home</a>
+          </Link>
+        </button>
       </div>
 
       {/* Grid layout */}
