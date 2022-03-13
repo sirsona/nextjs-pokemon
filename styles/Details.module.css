@@ -4,6 +4,10 @@
   grid-gap: 1rem;
 }
 
+.container {
+  padding: 2rem;
+}
+
 .name {
   font-weight: bold;
   font-size: 2rem;

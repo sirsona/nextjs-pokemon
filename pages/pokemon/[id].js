@@ -30,7 +30,7 @@ export default function Detail() {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>{pokemon.name}</title>
       </Head>

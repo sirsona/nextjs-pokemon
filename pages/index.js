@@ -21,7 +21,7 @@ export default function Home() {
       <Head>
         <title>NextJS Pokemon Mode </title>
       </Head>
-
+      <h1>Pokemon List</h1>
       <div className={styles.grid}>
         {pokemon.map((pokemon) => (
           <div className={styles.card} key={pokemon.id}>
