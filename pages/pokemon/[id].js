@@ -6,28 +6,35 @@ import styles from "../../styles/Details.module.css";
 import Head from "next/head";
 import Link from "next/link";
 
-export default function Detail() {
-  const {
-    query: { id },
-  } = useRouter();
+export const getServerSideProps = async ({ params }) => {
+  const resp = await fetch(
+    `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${params.id}.json`
+  );
+  return {
+    props: { pokemon: await resp.json() },
+  };
+};
 
-  const [pokemon, setPokemon] = useState(null);
+export default function Detail({ pokemon }) {
+  // const {
+  //   query: { id },
+  // } = useRouter();
 
-  useEffect(() => {
-    async function getPokemon() {
-      const resp = await fetch(
-        `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${id}.json`
-      );
-      setPokemon(await resp.json());
-    }
-    if (id) {
-      getPokemon();
-    }
-  }, [id]);
+  // const [pokemon, setPokemon] = useState(null);
 
-  if (!pokemon) {
-    return null;
-  }
+  // useEffect(() => {
+  //   async function getPokemon() {
+
+  //     setPokemon(await resp.json());
+  //   }
+  //   if (id) {
+  //     getPokemon();
+  //   }
+  // }, [id]);
+
+  // if (!pokemon) {
+  //   return null;
+  // }
 
   return (
     <div className={styles.container}>
